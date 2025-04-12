@@ -1,0 +1,41 @@
+<div mat-dialog-title class="bg-gray-700 text-white">
+  Add New
+</div>
+<div mat-dialog-content>
+  <form name="currentForm" [formGroup]="currentForm" class="mt-5">
+    <div fxLayout="columun" fxLayout.gt-xs="row" fxLayoutAlign="start start" fxLayoutGap="2%">
+      <mat-form-field fxFlex="49%">
+        <mat-label>Customer Name</mat-label>
+        <input matInput type="text" placeholder="Customer Name" formControlName="name" required />
+        <mat-hint matSuffix fxLayoutAlign="end center"> <mat-icon
+            matTooltip="Write a Header">help_outline</mat-icon></mat-hint>
+      </mat-form-field>
+      <mat-form-field fxFlex="49%">
+        <mat-label>Choose one</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option *ngFor="let item of items" [value]="item.id">{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="columun" fxLayout.gt-xs="row" fxLayoutAlign="start start" fxLayoutGap="2%">
+      <mat-form-field fxFlex="49%">
+        <mat-label>Choose one</mat-label>
+        <mat-select formControlName="role" required>
+          <mat-option *ngFor="let item of itemsRole" [value]="item.id" req>{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button cButton color="warning" mat-dialog-close class="ml-12" >Cancel</button>
+  <button cButton class="mat-primary mt-16 mt-sm-0" [mat-dialog-close]="true" (click)="sendDataToDatabase()"
+    [disabled]="currentForm.invalid || currentForm.pristine" appEnterKey (enterPressed)="sendDataToDatabase()">
+    Save Data
+  </button>
+  <!--! you can do with keyup for without click save just use enter on your keyboard but also you can click it just added enter functionality  -->
+  <!-- <button mat-button class="mat-primary mt-16 mt-sm-0" [mat-dialog-close]="true" (click)="sendDataToDatabase()"
+    [disabled]="currentForm.invalid || currentForm.pristine" (keyup.enter)="sendDataToDatabase()">
+    Save Data
+  </button> -->
+</div>

@@ -129,6 +129,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   logout() {
     Cookies.remove('auth_token');
+    localStorage.removeItem("currentUserAdminPanel")
     this.router.navigate(['/login']);
   }
 

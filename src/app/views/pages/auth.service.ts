@@ -23,7 +23,8 @@ export class AuthService {
     saveUser(data: any): Promise<any> {
         const newUser= {
           email:data.email,
-          password:data.password
+          password:data.password,
+          customer_id:data.customer_id
         };
         return new Promise((resolve, reject) => {
             this.httpClient.post(environment.apiEndpoint + "reg/register", newUser).subscribe((response: any) => {
@@ -38,6 +39,13 @@ export class AuthService {
         };
         return new Promise((resolve, reject) => {
             this.httpClient.post(environment.apiEndpoint + "auth/login", user).subscribe((response: any) => {
+                resolve(response);
+            }, reject);
+        });
+    }
+    userById(data: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.httpClient.get(`${environment.apiEndpoint}user?customer_id=${data.customer_id}&user_id=${data.user_id}`).subscribe((response: any) => {
                 resolve(response);
             }, reject);
         });

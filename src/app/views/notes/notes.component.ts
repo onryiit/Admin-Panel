@@ -8,14 +8,13 @@ import { NotesFormComponent } from './notes-form/notes-form.component';
 import { NoteService } from './notes-form.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthGuard } from '../../layout/auth/auth.guard';
 @Component({
   selector: 'app-notes',
   standalone: true,
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss',
   imports:[CommonModule, MatFormFieldModule, MatTableModule,ButtonModule,MatDialogModule,MatIconModule,MatMenuModule],
-  providers:[AuthGuard]
+  providers:[]
 })
 export class NotesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'desc','manage'];

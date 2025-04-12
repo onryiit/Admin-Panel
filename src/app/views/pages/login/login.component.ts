@@ -41,7 +41,7 @@ import {
     IconDirective,
     FormControlDirective,
     ButtonDirective,
-    NgStyle,
+    // NgStyle,
     ReactiveFormsModule,
   ],
 })
@@ -73,8 +73,18 @@ export class LoginComponent implements OnInit {
       .login(data)
       .then((response: any) => {
         Cookies.set('auth_token', response.token, { expires: 1 / 24 });
-
         this.router.navigate(['/dashboard']);
+        const payload= {
+          user_id:response.user_id,
+          customer_id:response.customer_id
+        }
+        this.authService.userById(payload).then((res)=>{
+          const param:any ={
+            user_id: res.user_id,
+            customer_id:res.customer_id
+          }
+          localStorage.setItem("currentUserAdminPanel",JSON.stringify(param))
+        })
       })
       .catch((err) => {
         this.errorMessage = 'Giriş başarısız!';

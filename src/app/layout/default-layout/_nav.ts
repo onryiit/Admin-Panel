@@ -30,6 +30,18 @@ export const navItems: INavData[] = [
     title: true
   },
   {
+    name: 'Customer',
+    url: '/customer',
+    iconComponent: { name: 'cil-notes' },
+    children: [
+      {
+        name: 'Customer List',
+        url: '/customer/list',
+        icon: 'nav-icon-bullet'
+      }
+    ]
+  },
+  {
     name: 'Notes',
     url: '/notes',
     iconComponent: { name: 'cil-notes' },
