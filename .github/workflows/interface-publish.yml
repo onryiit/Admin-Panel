@@ -1,0 +1,57 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  push:
+    branches: [ "master" ] # Veya master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.11.1' # Projenize uygun Node.js sürümünü seçin
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci # 'npm install' yerine 'ci' daha hızlı ve tutarlıdır
+
+      # ÖNEMLİ: Build komutunda base-href ayarı
+      # GitHub Pages genellikle https://kullaniciadi.github.io/repo-adi/ şeklinde çalışır.
+      # Bu yüzden build'in bu alt yolu bilmesi gerekir. Repo adınızı yazın.
+      # Eğer custom domain kullanıyorsanız veya kullanıcı/organizasyon sayfası ise farklılık gösterebilir.
+      - name: Build project for GitHub Pages
+        run: npm run build -- --base-href /Admin-Panel/ # <-- repo-adi kısmını kendi repo adınızla değiştirin!
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Build çıktısının olduğu klasörü TAM olarak belirtin
+          path: './dist/admin-panel/' # <-- proje-adi kısmını kendi projenizin build klasör adıyla değiştirin!
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
