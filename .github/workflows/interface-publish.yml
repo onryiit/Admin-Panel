@@ -31,7 +31,7 @@ jobs:
       # Bu yüzden build'in bu alt yolu bilmesi gerekir. Repo adınızı yazın.
       # Eğer custom domain kullanıyorsanız veya kullanıcı/organizasyon sayfası ise farklılık gösterebilir.
       - name: Build project for GitHub Pages
-        run: npm run build -- --base-href /Admin-Panel/ # <-- repo-adi kısmını kendi repo adınızla değiştirin!
+        run: npm run build -- --base-href /Admin-Panel/browser # <-- repo-adi kısmını kendi repo adınızla değiştirin!
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
