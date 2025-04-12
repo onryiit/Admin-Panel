@@ -31,7 +31,6 @@ export class NoteService {
     getNotesList(): Promise<any> {
       this.storedUser = localStorage.getItem("currentUserAdminPanel");
       this.currentUserData = JSON.parse(this.storedUser)
-      console.log(this.currentUserData)
       const customer_id = this.currentUserData.customer_id
         return new Promise((resolve, reject) => {
             this.httpClient.get(`${environment.apiEndpoint}Note/note-list?customer_id=${customer_id}`).subscribe((response: any) => {
