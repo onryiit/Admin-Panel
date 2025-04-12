@@ -9,7 +9,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'list',
-        loadComponent: () => import('../Notes/notes.component').then(m => m.NotesComponent),
+        loadComponent: () => import('../notes/notes.component').then(m => m.NotesComponent),
         data: {
           title: 'Notes List'
         }
